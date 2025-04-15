@@ -1,0 +1,66 @@
+{
+  "name": "@cohostvip/cohost-react",
+  "version": "0.0.2",
+  "description": "React bindings for the Cohost API",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "dev": "tsc --watch --project tsconfig.json",
+    "clean": "rm -rf dist",
+    "test": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "dependencies": {
+    "@cohostvip/cohost-node": "0.0.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
+    "jsdom": "26.0.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cohostvip/cohost-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cohostvip/cohost-react/issues"
+  },
+  "homepage": "https://github.com/cohostvip/cohost-react",
+  "author": "Cohost <support@cohost.vip> (https://cohost.vip)",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "cohost",
+    "react",
+    "nextjs",
+    "api",
+    "context",
+    "provider",
+    "sdk",
+    "typescript"
+  ]
+}
