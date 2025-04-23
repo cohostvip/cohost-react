@@ -1,27 +1,36 @@
 import React, { createContext, useContext } from 'react';
-import { createCohostClient, type CohostClient } from '@cohostvip/cohost-node';
+import { CohostClientSettings, createCohostClient, type CohostClient } from '@cohostvip/cohost-node';
 
-export interface CohostProviderProps {
-    token: string;
+
+export type CohostProviderProps = {
+    settings?: CohostClientSettings;
     children: React.ReactNode;
-}
+} & ({
+    token: string; client?: CohostClient;
+} | {
+    token?: string; client: CohostClient;
+});
 
-const CohostContext = createContext<CohostClient | null>(null);
+const CohostContext = createContext<{
+    client: CohostClient;
+} | null>(null);
 
 export const CohostProvider: React.FC<CohostProviderProps> = ({
-    token,
+    client: providedClient,
+    settings,
+    token: providedToken,
     children,
 }) => {
-    const client = createCohostClient({ token }); // assumes a factory fn in cohost-node
+    const client = providedClient ?? createCohostClient({ token: providedToken!, settings }); // assumes a factory fn in cohost-node
 
     return (
-        <CohostContext.Provider value={client}>
+        <CohostContext.Provider value={{ client }}>
             {children}
         </CohostContext.Provider>
     );
 };
 
-export const useCohostClient = (): CohostClient => {
+export const useCohostClient = (): { client: CohostClient } => {
     const ctx = useContext(CohostContext);
     if (!ctx) throw new Error("useCohostClient must be used within a CohostProvider");
     return ctx;

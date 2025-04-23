@@ -2,13 +2,19 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/index.ts'],       // adjust if entry point is different
-  splitting: false,              // disable code splitting (for lib)
+  entry: ['src/index.ts'],
+  splitting: false,
   sourcemap: true,
-  clean: true,                   // clean outDir before build
-  dts: true,                     // emit .d.ts files
-  format: ['cjs', 'esm'],        // build both formats
+  clean: true,
+  dts: true,
+  format: ['cjs', 'esm'],
   outDir: 'dist',
-  minify: true,                  // .min.js output
-  target: 'es2020',              // or match your node target
+  minify: true,
+  target: 'es2020',
+  outExtension({ format }) {
+    return {
+      js: format === 'cjs' ? '.cjs' : '.js'
+    }
+  }
+
 });
