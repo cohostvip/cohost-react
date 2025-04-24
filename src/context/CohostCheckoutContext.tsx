@@ -9,12 +9,12 @@ export type CohostCheckoutProviderProps = {
 
 export type CohostCheckoutContextType = {
     cartSessionId: string;
-
     cartSession: CartSession | null;
+    updateItem: (offeringId: string, quantity: number) => Promise<void>;
 };
 
 
-const CohostCheckoutContext = createContext<CohostCheckoutContextType | null>(null);
+export const CohostCheckoutContext = createContext<CohostCheckoutContextType | null>(null);
 
 export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
     cartSessionId,
@@ -23,6 +23,24 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
 
     const { client } = useCohostClient();
     const [cartSession, setCartSession] = React.useState<CartSession | null>(null);
+
+    const assertCartSession = () => {
+        if (!cartSession) {
+            console.error("CohostCheckoutProvider requires a cartSession");
+            throw new Error("CohostCheckoutProvider requires a cartSession");
+        }
+    }
+
+    const updateItem = async (offeringId: string, quantity: number) => {
+        assertCartSession();
+
+        try {
+            const updatedCart = await client.cart.updateItem(cartSessionId, { offeringId, quantity });
+            setCartSession(updatedCart);
+        } catch (error) {
+            console.error("Error updating cart item:", error);
+        }
+    }
 
 
     useEffect(() => {
@@ -46,6 +64,7 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
         <CohostCheckoutContext.Provider value={{
             cartSessionId,
             cartSession,
+            updateItem,
         }}>
             {children}
         </CohostCheckoutContext.Provider>
