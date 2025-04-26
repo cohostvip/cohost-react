@@ -1,4 +1,5 @@
-import React, { createContext, useContext } from 'react';
+import * as React from 'react';
+import { createContext, useContext } from 'react';
 import { CohostClientSettings, createCohostClient, type CohostClient } from '@cohostvip/cohost-node';
 
 

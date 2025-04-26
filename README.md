@@ -84,6 +84,16 @@ See its documentation for available methods like:
 
 ---
 
+## 🗒️ Changelog
+See the latest changes [here](./CHANGELOG.md).
+
+---
+
+## 🚧 Roadmap
+Planned features and improvements are tracked [here](./ROADMAP.md).
+
+---
+
 ## 🛠️ Support
 
 If you're building something custom or need help integrating, reach out at [cohost.vip](https://cohost.vip) or open an issue.
