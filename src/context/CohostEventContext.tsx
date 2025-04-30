@@ -71,7 +71,7 @@ export const CohostEventProvider: React.FC<CohostProviderProps> = ({
 
         setState('loading');
         client.events.fetch(eventId)
-            .then((fetchedEvent) => {
+            .then((fetchedEvent: EventProfile) => {
                 setEvent(fetchedEvent);
                 setState('ready');
             })
@@ -93,7 +93,7 @@ export const CohostEventProvider: React.FC<CohostProviderProps> = ({
 
         setState('loading-tickets');
         client.events.tickets(event.id)
-            .then((tickets) => {
+            .then((tickets: Ticket[]) => {
                 setTickets(tickets);
                 setState('ready');
             })

@@ -12,7 +12,8 @@ export type CohostCheckoutContextType = {
     cartSessionId: string;
     cartSession: CartSession | null;
     updateItem: (offeringId: string, quantity: number) => Promise<void>;
-    updateCartSession: (data: UpdatableCartSession) => Promise<void>;
+    updateCartSession: (data: Partial<UpdatableCartSession>) => Promise<void>;
+    placeOrder: () => Promise<unknown>;
 };
 
 
@@ -45,7 +46,7 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
     }
 
 
-    const updateCartSession = async (data: UpdatableCartSession) => {
+    const updateCartSession = async (data: Partial<UpdatableCartSession>) => {
         assertCartSession();
 
         try {
@@ -55,6 +56,18 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
             console.error("Error updating cart session:", error);
         }
     };
+
+
+    const placeOrder = async () => {
+        assertCartSession();
+
+        try {
+            const res = await client.cart.placeOrder(cartSessionId, {});
+            return res;
+        } catch (error) {
+            console.error("Error placing order:", error);
+        }
+    }
 
 
     useEffect(() => {
@@ -68,6 +81,9 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
                 setCartSession(cart);
             } catch (error) {
                 console.error("Error fetching cart session:", error);
+
+                // rethrow the error to be handled by the caller
+                throw error;
             }
         };
 
@@ -80,6 +96,7 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
             cartSession,
             updateItem,
             updateCartSession,
+            placeOrder,
         }}>
             {children}
         </CohostCheckoutContext.Provider>
