@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createContext, useContext, useEffect } from 'react';
 import { useCohostClient } from './CohostContext';
-import { CartSession, UpdatableCartSession } from '@cohostvip/cohost-node/types';
+import type { CartSession, UpdatableCartSession } from '@cohostvip/cohost-node';
 
 export type CohostCheckoutProviderProps = {
     cartSessionId: string;

@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react';
 import {
     EventProfile,
     Ticket,
-} from '@cohostvip/cohost-node/types/index';
+} from '@cohostvip/cohost-node';
 import { useCohostClient } from './CohostContext';
 
 export type CohostEventProviderProps = {
