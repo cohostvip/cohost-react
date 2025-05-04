@@ -1,5 +1,21 @@
 # @cohostvip/cohost-react
 
+## 0.0.10
+
+### Patch Changes
+
+- Add `events.attendees()` to fetch attendees for event.
+- Updated dependencies
+  - @cohostvip/cohost-node@0.0.10
+
+## 0.0.9
+
+### Patch Changes
+
+- feat: support fetching order details
+- Updated dependencies
+  - @cohostvip/cohost-node@0.0.9
+
 ## 0.0.6
 
 ### Patch Changes

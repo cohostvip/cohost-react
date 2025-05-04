@@ -7,9 +7,11 @@ export type CohostProviderProps = {
     settings?: CohostClientSettings;
     children: React.ReactNode;
 } & ({
-    token: string; client?: CohostClient;
+    token: string;
+    client?: CohostClient;
 } | {
-    token?: string; client: CohostClient;
+    token?: string;
+    client: CohostClient;
 });
 
 const CohostContext = createContext<{

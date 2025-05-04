@@ -6,7 +6,7 @@ import {
 } from '@cohostvip/cohost-node/types/index';
 import { useCohostClient } from './CohostContext';
 
-export type CohostProviderProps = {
+export type CohostEventProviderProps = {
     loadTickets?: boolean;
     children: React.ReactNode;
 } & (
@@ -40,7 +40,7 @@ export type CohostEventContextType = {
 
 const CohostEventContext = createContext<CohostEventContextType | null>(null);
 
-export const CohostEventProvider: React.FC<CohostProviderProps> = ({
+export const CohostEventProvider: React.FC<CohostEventProviderProps> = ({
     event: providedEvent,
     eventId,
     loadTickets = false,
