@@ -1,5 +1,13 @@
 # @cohostvip/cohost-react
 
+## 0.0.12
+
+### Patch Changes
+
+- Updated types, new `orders.list` method for fetching a list of orders
+- Updated dependencies
+  - @cohostvip/cohost-node@0.0.12
+
 ## 0.0.11
 
 ### Patch Changes
