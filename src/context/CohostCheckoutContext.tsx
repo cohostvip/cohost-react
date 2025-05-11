@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createContext, useContext, useEffect } from 'react';
 import { useCohostClient } from './CohostContext';
-import type { CartSession, UpdatableCartSession } from '@cohostvip/cohost-node';
+import type { CartSession, Offering, UpdatableCartSession } from '@cohostvip/cohost-node';
 
 export type CohostCheckoutProviderProps = {
     cartSessionId: string;
@@ -11,7 +11,8 @@ export type CohostCheckoutProviderProps = {
 export type CohostCheckoutContextType = {
     cartSessionId: string;
     cartSession: CartSession | null;
-    updateItem: (offeringId: string, quantity: number) => Promise<void>;
+    joinGroup: (groupId: string) => Promise<void>;
+    updateItem: (offeringId: string, quantity: number, options: any) => Promise<void>;
     updateCartSession: (data: Partial<UpdatableCartSession>) => Promise<void>;
     placeOrder: () => Promise<unknown>;
 };
@@ -34,11 +35,13 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
         }
     }
 
-    const updateItem = async (offeringId: string, quantity: number) => {
+    const joinGroup = async (groupId: string) => { }
+
+    const updateItem = async (itemId: string, quantity: number, options: any) => {
         assertCartSession();
 
         try {
-            const updatedCart = await client.cart.updateItem(cartSessionId, { offeringId, quantity });
+            const updatedCart = await client.cart.updateItem(cartSessionId, { itemId, quantity, options });
             setCartSession(updatedCart);
         } catch (error) {
             console.error("Error updating cart item:", error);
@@ -97,6 +100,8 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
             updateItem,
             updateCartSession,
             placeOrder,
+            
+            joinGroup,
         }}>
             {children}
         </CohostCheckoutContext.Provider>

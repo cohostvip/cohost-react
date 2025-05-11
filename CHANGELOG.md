@@ -1,5 +1,16 @@
 # @cohostvip/cohost-react
 
+## 0.1.0
+
+### Minor Changes
+
+- Cart supports table commitment, and packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @cohostvip/cohost-node@0.1.0
+
 ## 0.0.12
 
 ### Patch Changes
