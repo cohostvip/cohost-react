@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createContext, useContext, useEffect } from 'react';
 import { useCohostClient } from './CohostContext';
-import type { CartSession, Offering, UpdatableCartSession } from '@cohostvip/cohost-node';
+import type { CartSession, UpdatableCartSession } from '@cohostvip/cohost-node';
 
 export type CohostCheckoutProviderProps = {
     cartSessionId: string;
@@ -11,10 +11,10 @@ export type CohostCheckoutProviderProps = {
 export type CohostCheckoutContextType = {
     cartSessionId: string;
     cartSession: CartSession | null;
-    joinGroup: (groupId: string) => Promise<void>;
+    joinGroup: (groupId: string) => Promise<string | null>;
     updateItem: (offeringId: string, quantity: number, options: any) => Promise<void>;
     updateCartSession: (data: Partial<UpdatableCartSession>) => Promise<void>;
-    placeOrder: () => Promise<unknown>;
+    placeOrder: () => Promise<CartSession | undefined>;
 };
 
 
@@ -35,7 +35,26 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
         }
     }
 
-    const joinGroup = async (groupId: string) => { }
+    const joinGroup = async (groupId: string): Promise<string | null> => {
+        assertCartSession();
+
+        try {
+            const updatedCart = await client.cart.joinTableCommitment(cartSessionId, groupId);
+
+
+
+            setCartSession(updatedCart);
+
+            return updatedCart
+                .items
+                .find((item: any) => item.tableCommitmentId === groupId)?.id || null;
+        } catch (error) {
+            console.error("Error joining group:", error);
+            return null;
+        }
+
+
+    }
 
     const updateItem = async (itemId: string, quantity: number, options: any) => {
         assertCartSession();
@@ -100,7 +119,6 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
             updateItem,
             updateCartSession,
             placeOrder,
-            
             joinGroup,
         }}>
             {children}

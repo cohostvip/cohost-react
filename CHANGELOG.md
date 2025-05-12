@@ -1,5 +1,13 @@
 # @cohostvip/cohost-react
 
+## 0.1.1
+
+### Patch Changes
+
+- Can join existing table commitment
+- Updated dependencies
+  - @cohostvip/cohost-node@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
