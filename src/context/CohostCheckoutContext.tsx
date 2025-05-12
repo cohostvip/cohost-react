@@ -12,7 +12,7 @@ export type CohostCheckoutContextType = {
     cartSessionId: string;
     cartSession: CartSession | null;
     joinGroup: (groupId: string) => Promise<string | null>;
-    updateItem: (offeringId: string, quantity: number, options: any) => Promise<void>;
+    updateItem: (offeringId: string, quantity: number, options?: any) => Promise<void>;
     updateCartSession: (data: Partial<UpdatableCartSession>) => Promise<void>;
     placeOrder: () => Promise<CartSession | undefined>;
 };
@@ -56,7 +56,7 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
 
     }
 
-    const updateItem = async (itemId: string, quantity: number, options: any) => {
+    const updateItem = async (itemId: string, quantity: number, options?: any) => {
         assertCartSession();
 
         try {
