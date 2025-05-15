@@ -15,6 +15,7 @@ export type CohostCheckoutContextType = {
     updateItem: (offeringId: string, quantity: number, options?: any) => Promise<void>;
     updateCartSession: (data: Partial<UpdatableCartSession>) => Promise<void>;
     placeOrder: () => Promise<CartSession | undefined>;
+    processPayment: (data: unknown) => Promise<unknown>;
 };
 
 
@@ -92,6 +93,18 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
     }
 
 
+    const processPayment = async (data: unknown) => {
+        assertCartSession();
+
+        try {
+            const res = await client.cart.processPayment(cartSessionId, data);
+            return res;
+        } catch (error) {
+            console.error("Error processing payment:", error);
+        }
+    }
+
+
     useEffect(() => {
         if (!cartSessionId) {
             console.error("CohostCheckoutProvider requires a cartSessionId");
@@ -120,6 +133,7 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
             updateCartSession,
             placeOrder,
             joinGroup,
+            processPayment,
         }}>
             {children}
         </CohostCheckoutContext.Provider>

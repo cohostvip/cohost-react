@@ -1,5 +1,13 @@
 # @cohostvip/cohost-react
 
+## 0.1.3
+
+### Patch Changes
+
+- `processPayment` will process auth.net and other payment providers
+- Updated dependencies
+  - @cohostvip/cohost-node@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes
