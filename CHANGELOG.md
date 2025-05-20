@@ -1,5 +1,13 @@
 # @cohostvip/cohost-react
 
+## 0.1.4
+
+### Patch Changes
+
+- Updates to types
+- Updated dependencies
+  - @cohostvip/cohost-node@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes
