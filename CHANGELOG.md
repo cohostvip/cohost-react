@@ -1,5 +1,13 @@
 # @cohostvip/cohost-react
 
+## 0.1.5
+
+### Patch Changes
+
+- Can send customer responses and partner forwarded data from cart
+- Updated dependencies
+  - @cohostvip/cohost-node@0.1.5
+
 ## 0.1.4
 
 ### Patch Changes
