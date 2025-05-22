@@ -16,6 +16,7 @@ export type CohostCheckoutContextType = {
     updateCartSession: (data: Partial<UpdatableCartSession>) => Promise<void>;
     placeOrder: () => Promise<CartSession | undefined>;
     processPayment: (data: unknown) => Promise<unknown>;
+    applyCoupon: (code: string) => Promise<void>;
 };
 
 
@@ -33,6 +34,18 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
         if (!cartSession) {
             console.error("CohostCheckoutProvider requires a cartSession");
             throw new Error("CohostCheckoutProvider requires a cartSession");
+        }
+    }
+
+    const applyCoupon = async (code: string): Promise<void> => {
+        assertCartSession();
+
+        try {
+            const updatedCart = await client.cart.applyCoupon(cartSessionId, code);
+            setCartSession(updatedCart);
+
+        } catch (error) {
+            console.error("Error applying coupon:", error);
         }
     }
 
@@ -134,6 +147,7 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
             placeOrder,
             joinGroup,
             processPayment,
+            applyCoupon,
         }}>
             {children}
         </CohostCheckoutContext.Provider>

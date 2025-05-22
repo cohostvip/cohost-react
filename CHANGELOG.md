@@ -1,5 +1,13 @@
 # @cohostvip/cohost-react
 
+## 0.1.6
+
+### Patch Changes
+
+- Can add coupon to cart
+- Updated dependencies
+  - @cohostvip/cohost-node@0.1.6
+
 ## 0.1.5
 
 ### Patch Changes
