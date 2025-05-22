@@ -17,6 +17,7 @@ export type CohostCheckoutContextType = {
     placeOrder: () => Promise<CartSession | undefined>;
     processPayment: (data: unknown) => Promise<unknown>;
     applyCoupon: (code: string) => Promise<void>;
+    removeCoupon: (id: string) => Promise<void>;
 };
 
 
@@ -46,6 +47,21 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
 
         } catch (error) {
             console.error("Error applying coupon:", error);
+            throw error;
+        }
+    }
+
+
+    const removeCoupon = async (id: string): Promise<void> => {
+        assertCartSession();
+
+        try {
+            const updatedCart = await client.cart.deleteCoupon(cartSessionId, id);
+            setCartSession(updatedCart);
+
+        } catch (error) {
+            console.error("Error removing coupon:", error);
+            throw error;
         }
     }
 
@@ -66,8 +82,6 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
             console.error("Error joining group:", error);
             return null;
         }
-
-
     }
 
     const updateItem = async (itemId: string, quantity: number, options?: any) => {
@@ -148,6 +162,7 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
             joinGroup,
             processPayment,
             applyCoupon,
+            removeCoupon,
         }}>
             {children}
         </CohostCheckoutContext.Provider>

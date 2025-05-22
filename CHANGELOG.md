@@ -1,5 +1,13 @@
 # @cohostvip/cohost-react
 
+## 0.1.7
+
+### Patch Changes
+
+- coupon methods added. including applyCoupon and deleteCoupon
+- Updated dependencies
+  - @cohostvip/cohost-node@0.1.7
+
 ## 0.1.6
 
 ### Patch Changes
