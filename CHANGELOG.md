@@ -1,5 +1,13 @@
 # @cohostvip/cohost-react
 
+## 0.1.8
+
+### Patch Changes
+
+- Added **PaymentElementProvider** to handle tokenizing cards
+- Updated dependencies
+  - @cohostvip/cohost-node@0.1.8
+
 ## 0.1.7
 
 ### Patch Changes
