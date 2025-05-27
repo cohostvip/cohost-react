@@ -1,5 +1,13 @@
 # @cohostvip/cohost-react
 
+## 0.1.11
+
+### Patch Changes
+
+- Can get attendees list for order. method: `orders.attendees`
+- Updated dependencies
+  - @cohostvip/cohost-node@0.1.11
+
 ## 0.1.10
 
 ### Patch Changes
