@@ -1,5 +1,13 @@
 # @cohostvip/cohost-react
 
+## 0.1.12
+
+### Patch Changes
+
+- better error messages
+- Updated dependencies
+  - @cohostvip/cohost-node@0.1.12
+
 ## 0.1.11
 
 ### Patch Changes
