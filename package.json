@@ -27,7 +27,7 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "dependencies": {
-    "@cohostvip/cohost-node": "^0.1.12"
+    "@cohostvip/cohost-node": "^0.1.13"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "6.6.3",
