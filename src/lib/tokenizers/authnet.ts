@@ -43,11 +43,14 @@ const tokenizeCard = async (cardInfo: CreditCardInformation, paymentIntent: any)
 const registerScripts = () => {
     const scriptId = 'authnet-accept-js';
 
+    // const testingUrl = 'https://jstest.authorize.net/v1/Accept.js';
+    const productionUrl = 'https://js.authorize.net/v1/Accept.js';
+
     // Only add if not already in the DOM
     if (!document.getElementById(scriptId)) {
         const script = document.createElement('script');
         script.id = scriptId;
-        script.src = 'https://jstest.authorize.net/v1/Accept.js';
+        script.src = productionUrl;
         script.async = true;
         document.body.appendChild(script);
     }
