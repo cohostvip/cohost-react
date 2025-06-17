@@ -1,5 +1,13 @@
 # @cohostvip/cohost-react
 
+## 0.1.15
+
+### Patch Changes
+
+- Support for billing address
+- Updated dependencies
+  - @cohostvip/cohost-node@0.1.15
+
 ## 0.1.14
 
 ### Patch Changes

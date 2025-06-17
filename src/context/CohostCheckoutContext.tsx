@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createContext, useContext, useEffect } from 'react';
 import { useCohostClient } from './CohostContext';
-import type { CartSession, UpdatableCartSession } from '@cohostvip/cohost-node';
+import type { CartSession, Customer, PersonAddress, UpdatableCartSession } from '@cohostvip/cohost-node';
 
 export type CohostCheckoutProviderProps = {
     cartSessionId: string;
@@ -18,6 +18,8 @@ export type CohostCheckoutContextType = {
     processPayment: (data: unknown) => Promise<unknown>;
     applyCoupon: (code: string) => Promise<void>;
     removeCoupon: (id: string) => Promise<void>;
+    setCustomer: (customer: Partial<Customer>) => Promise<void>;
+    setBillingAddress: (address: Partial<PersonAddress>) => Promise<void>;
 };
 
 
@@ -107,6 +109,39 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
         }
     };
 
+    const setCustomer = async (customer: Partial<Customer>) => {
+        assertCartSession();
+
+        try {
+
+            const updatedCart = await client.cart.update(cartSessionId, {
+                customer: {
+                    ...cartSession?.customer,
+                    ...customer,
+                },
+            });
+            setCartSession(updatedCart);
+        } catch (error) {
+            console.error("Error setting customer:", error);
+        }
+    }
+
+    const setBillingAddress = async (address: Partial<PersonAddress>) => {
+        assertCartSession();
+
+        const customer: Partial<Customer> = {
+            ...cartSession?.customer,
+            billingAddress: {
+                ...cartSession?.customer?.billingAddress,
+                ...address,
+                first: address.first || cartSession?.customer?.billingAddress?.first || cartSession?.customer?.first || '',
+                last: address.last || cartSession?.customer?.billingAddress?.last || cartSession?.customer?.last || '',
+            } as any,
+        }
+
+        return setCustomer(customer);
+    }
+
 
     const placeOrder = async () => {
         assertCartSession();
@@ -163,6 +198,8 @@ export const CohostCheckoutProvider: React.FC<CohostCheckoutProviderProps> = ({
             processPayment,
             applyCoupon,
             removeCoupon,
+            setCustomer,
+            setBillingAddress,
         }}>
             {children}
         </CohostCheckoutContext.Provider>
